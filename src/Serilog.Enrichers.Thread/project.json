@@ -22,6 +22,6 @@
   },
   "frameworks": {
     "net45": {},
-    "dotnet5.1": {}
+    "netstandard1.0": {}
   }
 }
