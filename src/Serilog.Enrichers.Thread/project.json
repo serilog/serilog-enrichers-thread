@@ -1,21 +1,29 @@
 ﻿{
-  "version": "2.0.0-beta-*",
+  "version": "2.0.0-rc-*",
   "description": "Enrich Serilog events with properties from the current thread.",
-  "authors": [ "Serilog Contributors" ],
-  "tags": [ "serilog", "thread", "enricher" ],
-  "projectUrl": "http://serilog.net",
-  "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0",
-  "iconUrl": "http://serilog.net/images/serilog-enricher-nuget.png",
-  "dependencies": {
-    "Serilog": "2.0.0-beta-511"
+  "authors": [
+    "Serilog Contributors"
+  ],
+  "packOptions": {
+    "tags": [
+      "serilog",
+      "thread",
+      "enricher"
+    ],
+    "projectUrl": "http://serilog.net",
+    "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0",
+    "iconUrl": "http://serilog.net/images/serilog-enricher-nuget.png"
   },
-  "compilationOptions": {
+  "dependencies": {
+    "Serilog": "2.0.0-rc-556"
+  },
+  "buildOptions": {
     "keyFile": "../../assets/Serilog.snk"
   },
   "frameworks": {
-    "net45": {
-    },
-    "dotnet5.1": {
+    "net45": {},
+    "netstandard1.3": {
+      "System.Threading": "4.0.11-rc2-24027"
     }
   }
 }
