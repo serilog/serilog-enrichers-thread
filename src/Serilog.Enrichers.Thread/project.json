@@ -22,6 +22,8 @@
   },
   "frameworks": {
     "net45": {},
-    "netstandard1.0": {}
+    "netstandard1.3": {
+      "System.Threading": "4.0.11-rc2-24027"
+    }
   }
 }
