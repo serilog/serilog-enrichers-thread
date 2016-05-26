@@ -21,7 +21,7 @@ using Serilog.Enrichers;
 namespace Serilog
 {
     /// <summary>
-    /// Extends <see cref="LoggerConfiguration"/> to add enrichers for <see cref="System.Thread"/>.
+    /// Extends <see cref="LoggerConfiguration"/> to add enrichers for <see cref="Thread"/>.
     /// capabilities.
     /// </summary>
     public static class ThreadLoggerConfigurationExtensions
