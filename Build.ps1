@@ -12,4 +12,10 @@ Push-Location src/Serilog.Enrichers.Thread
 if($LASTEXITCODE -ne 0) { exit 1 }    
 
 Pop-Location
+# Push-Location test/Serilog.Enrichers.Thread.Tests
+
+# & dotnet test -c Release
+# if($LASTEXITCODE -ne 0) { exit 2 }
+
+# Pop-Location
 Pop-Location
