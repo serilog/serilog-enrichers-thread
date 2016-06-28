@@ -1,5 +1,5 @@
 ﻿{
-  "version": "2.0.0-rc-*",
+  "version": "2.0.0-*",
   "description": "Enrich Serilog events with properties from the current thread.",
   "authors": [ "Serilog Contributors" ],
   "packOptions": {
@@ -9,7 +9,7 @@
     "iconUrl": "http://serilog.net/images/serilog-enricher-nuget.png"
   },
   "dependencies": {
-    "Serilog": "2.0.0-rc-577"
+    "Serilog": "2.0.0"
   },
   "buildOptions": {
     "keyFile": "../../assets/Serilog.snk",
@@ -21,7 +21,7 @@
     },
     "netstandard1.3": {
       "dependencies": {
-        "System.Threading.Thread": "4.0.0-rc2-24027"
+        "System.Threading.Thread": "4.0.0"
       }
     }
   }
