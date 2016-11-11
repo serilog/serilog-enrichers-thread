@@ -15,11 +15,12 @@
 using System.Threading;
 using Serilog.Core;
 using Serilog.Events;
+using System;
 
 namespace Serilog.Enrichers
 {
     /// <summary>
-    /// Enriches log events with a ThreadId property containing the current <see cref="Thread.ManagedThreadId"/>.
+    /// Enriches log events with a ThreadId property containing the <see cref="Environment.CurrentManagedThreadId"/>.
     /// </summary>
     public class ThreadIdEnricher : ILogEventEnricher
     {
@@ -35,7 +36,7 @@ namespace Serilog.Enrichers
         /// <param name="propertyFactory">Factory for creating new properties to add to the event.</param>
         public void Enrich(LogEvent logEvent, ILogEventPropertyFactory propertyFactory)
         {
-            logEvent.AddPropertyIfAbsent(new LogEventProperty(ThreadIdPropertyName, new ScalarValue(Thread.CurrentThread.ManagedThreadId)));
+            logEvent.AddPropertyIfAbsent(new LogEventProperty(ThreadIdPropertyName, new ScalarValue(Environment.CurrentManagedThreadId)));
         }
     }
 }
