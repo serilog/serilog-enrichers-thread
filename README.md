@@ -17,6 +17,12 @@ Log.Logger = new LoggerConfiguration()
     .Enrich.WithThreadId()
     .CreateLogger();
 ```
+ 
+To use the enricher, first install the NuGet package:
+
+```powershell
+Install-Package Serilog.Enrichers.Thread
+```
 
 
 Copyright &copy; 2016 Serilog Contributors - Provided under the [Apache License, Version 2.0](http://apache.org/licenses/LICENSE-2.0.html).
