@@ -21,13 +21,13 @@ using Serilog.Enrichers;
 namespace Serilog
 {
     /// <summary>
-    /// Extends <see cref="LoggerConfiguration"/> to add enrichers for <see cref="Thread"/>.
+    /// Extends <see cref="LoggerConfiguration"/> to add enrichers for <see cref="Environment.CurrentManagedThreadId"/>.
     /// capabilities.
     /// </summary>
     public static class ThreadLoggerConfigurationExtensions
     {
         /// <summary>
-        /// Enrich log events with a ThreadId property containing the current <see cref="Thread.ManagedThreadId"/>.
+        /// Enrich log events with a ThreadId property containing the <see cref="Environment.CurrentManagedThreadId"/>.
         /// </summary>
         /// <param name="enrichmentConfiguration">Logger enrichment configuration.</param>
         /// <returns>Configuration object allowing method chaining.</returns>
