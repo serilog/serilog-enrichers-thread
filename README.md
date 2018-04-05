@@ -17,7 +17,29 @@ Log.Logger = new LoggerConfiguration()
     .Enrich.WithThreadId()
     .CreateLogger();
 ```
- 
+
+In order for the ThreadId to show up in the logging, you will need to create or modify your output template. 
+
+```csharp
+w.File(...., outputTemplate:
+  "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj} {Properties}{NewLine}{Exception}")
+```
+Here, {Properties} can include not only ThreadId, but any other enrichment which is applied. Alternatively, {ThreadId} could be used instead, if you want to only add the thread id enrichment.
+
+An example, which also uses the Serilogs.Sinks.Async Nuget package, is below:
+
+```csharp
+            var logger = Log.Logger = new LoggerConfiguration()
+                 .MinimumLevel.Debug()
+                 .WriteTo.Console(restrictedToMinimumLevel:Serilog.Events.LogEventLevel.Information)
+                 .WriteTo.Async(w=>w.File("..\\..\\..\\..\\logs\\SerilogLogFile.json", rollingInterval: RollingInterval.Day, outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj} {ThreadId}{NewLine}{Exception}"))
+                 .Enrich.WithThreadId()
+                 .CreateLogger();
+  ```
+  Which would produce an output in the log file as follows:
+  ```
+  2018-04-05 20:40:30.222 +02:00 [ERR] The file name_of_file.svg does not exist 1
+  ```
 To use the enricher, first install the NuGet package:
 
 ```powershell
