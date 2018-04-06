@@ -32,14 +32,16 @@ An example, which also uses the Serilogs.Sinks.Async Nuget package, is below:
             var logger = Log.Logger = new LoggerConfiguration()
                  .MinimumLevel.Debug()
                  .WriteTo.Console(restrictedToMinimumLevel:Serilog.Events.LogEventLevel.Information)
-                 .WriteTo.Async(w=>w.File("..\\..\\..\\..\\logs\\SerilogLogFile.json", rollingInterval: RollingInterval.Day, outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj} {ThreadId}{NewLine}{Exception}"))
+                 .WriteTo.Async(w=>w.File("..\\..\\..\\..\\logs\\SerilogLogFile.json", rollingInterval: RollingInterval.Day, outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj} <{ThreadId}>{NewLine}{Exception}"))
                  .Enrich.WithThreadId()
                  .CreateLogger();
   ```
   Which would produce an output in the log file as follows:
   ```
-  2018-04-05 20:40:30.222 +02:00 [ERR] The file name_of_file.svg does not exist 1
+2018-04-06 13:12:45.684 +02:00 [ERR] The file file_name.svg does not exist <4>
   ```
+Where, <4> is an example thread id.
+
 To use the enricher, first install the NuGet package:
 
 ```powershell
