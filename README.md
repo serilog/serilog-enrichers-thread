@@ -17,8 +17,8 @@ Log.Logger = new LoggerConfiguration()
     .Enrich.WithThreadId()
     .CreateLogger();
 ```
-
-In order for the ThreadId to show up in the logging, you will need to create or modify your output template. 
+Many sinks simply include all properties without further action required, so the thread id will be logged automatically.
+However, some sinks, such as the File and Console sinks use an output template and the new ThreadId may not be automatically output in your sink. In this case, in order for the ThreadId to show up in the logging, you will need to create or modify your output template. 
 
 ```csharp
 w.File(...., outputTemplate:
