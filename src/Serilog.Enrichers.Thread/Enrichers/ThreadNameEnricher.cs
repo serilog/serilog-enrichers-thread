@@ -38,7 +38,11 @@ namespace Serilog.Enrichers {
         /// <param name="propertyFactory">Factory for creating new properties to add to the event.</param>
         public void Enrich(LogEvent logEvent, ILogEventPropertyFactory propertyFactory) 
         {
-            logEvent.AddPropertyIfAbsent(new LogEventProperty(ThreadNamePropertyName, new ScalarValue(Thread.CurrentThread.Name)));
+            var threadName = Thread.CurrentThread.Name;
+            if (threadName != null) 
+            {
+                logEvent.AddPropertyIfAbsent(new LogEventProperty(ThreadNamePropertyName, new ScalarValue(Thread.CurrentThread.Name)));
+            }
         }
     }
 #endif
