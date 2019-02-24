@@ -17,19 +17,18 @@ using System.Threading;
 using Serilog.Core;
 using Serilog.Events;
 
-namespace Serilog.Enrichers {
+namespace Serilog.Enrichers 
+{
 #if NET45 || NETSTANDARD2_0
     /// <summary>
     /// Enriches log events with a ThreadName property containing the 
     /// </summary>
     public class ThreadNameEnricher : ILogEventEnricher 
     {
-
         /// <summary>
         /// The property name added to enriched log events.
         /// </summary>
         public const string ThreadNamePropertyName = "ThreadName";
-
 
         /// <summary>
         /// Enrich the log event.
@@ -41,7 +40,7 @@ namespace Serilog.Enrichers {
             var threadName = Thread.CurrentThread.Name;
             if (threadName != null) 
             {
-                logEvent.AddPropertyIfAbsent(new LogEventProperty(ThreadNamePropertyName, new ScalarValue(Thread.CurrentThread.Name)));
+                logEvent.AddPropertyIfAbsent(new LogEventProperty(ThreadNamePropertyName, new ScalarValue(threadName)));
             }
         }
     }
