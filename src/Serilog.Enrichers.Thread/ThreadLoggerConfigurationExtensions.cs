@@ -39,7 +39,7 @@ namespace Serilog
             return enrichmentConfiguration.With<ThreadIdEnricher>();
         }
 
-#if NET45 || NETSTANDARD2_0
+#if THREAD_NAME
         /// <summary>
         /// Enrich log events with a ThreadName property containing the <see cref="Thread.CurrentThread"/> <see cref="Thread.Name"/>.
         /// </summary>
