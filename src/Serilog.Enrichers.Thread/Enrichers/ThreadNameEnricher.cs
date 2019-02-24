@@ -12,14 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
+#if THREAD_NAME
 using System.Threading;
 using Serilog.Core;
 using Serilog.Events;
 
 namespace Serilog.Enrichers 
 {
-#if NET45 || NETSTANDARD2_0
+
     /// <summary>
     /// Enriches log events with a ThreadName property containing the 
     /// </summary>
@@ -44,5 +44,5 @@ namespace Serilog.Enrichers
             }
         }
     }
-#endif
 }
+#endif
