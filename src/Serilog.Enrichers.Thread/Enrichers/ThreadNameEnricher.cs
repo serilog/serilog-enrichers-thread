@@ -12,31 +12,37 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#if THREAD_NAME
 using System.Threading;
 using Serilog.Core;
 using Serilog.Events;
-using System;
 
-namespace Serilog.Enrichers
+namespace Serilog.Enrichers 
 {
+
     /// <summary>
-    /// Enriches log events with a ThreadId property containing the <see cref="Environment.CurrentManagedThreadId"/>.
+    /// Enriches log events with a ThreadName property containing the 
     /// </summary>
-    public class ThreadIdEnricher : ILogEventEnricher
+    public class ThreadNameEnricher : ILogEventEnricher 
     {
         /// <summary>
         /// The property name added to enriched log events.
         /// </summary>
-        public const string ThreadIdPropertyName = "ThreadId";
+        public const string ThreadNamePropertyName = "ThreadName";
 
         /// <summary>
         /// Enrich the log event.
         /// </summary>
         /// <param name="logEvent">The log event to enrich.</param>
         /// <param name="propertyFactory">Factory for creating new properties to add to the event.</param>
-        public void Enrich(LogEvent logEvent, ILogEventPropertyFactory propertyFactory)
+        public void Enrich(LogEvent logEvent, ILogEventPropertyFactory propertyFactory) 
         {
-            logEvent.AddPropertyIfAbsent(new LogEventProperty(ThreadIdPropertyName, new ScalarValue(Environment.CurrentManagedThreadId)));
+            var threadName = Thread.CurrentThread.Name;
+            if (threadName != null) 
+            {
+                logEvent.AddPropertyIfAbsent(new LogEventProperty(ThreadNamePropertyName, new ScalarValue(threadName)));
+            }
         }
     }
 }
+#endif
