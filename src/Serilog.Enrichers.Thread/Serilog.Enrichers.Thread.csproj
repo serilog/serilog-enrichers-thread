@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <Description>Enrich Serilog events with properties from the current thread.</Description>
-    <VersionPrefix>3.1.0</VersionPrefix>
+    <VersionPrefix>3.1.1</VersionPrefix>
     <Authors>Serilog Contributors</Authors>
     <TargetFrameworks>net45;netstandard1.0;netstandard2.0</TargetFrameworks>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
