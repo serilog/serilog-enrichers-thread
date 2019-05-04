@@ -21,7 +21,7 @@ using Serilog.Enrichers;
 namespace Serilog
 {
     /// <summary>
-    /// Extends <see cref="LoggerConfiguration"/> to add enrichers for <see cref="Environment.CurrentManagedThreadId"/>.
+    /// Extends <see cref="LoggerConfiguration"/> to add enrichers for <see cref="Environment.CurrentManagedThreadId"/>
     /// capabilities.
     /// </summary>
     public static class ThreadLoggerConfigurationExtensions
@@ -31,7 +31,7 @@ namespace Serilog
         /// </summary>
         /// <param name="enrichmentConfiguration">Logger enrichment configuration.</param>
         /// <returns>Configuration object allowing method chaining.</returns>
-        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentNullException">If <paramref name="enrichmentConfiguration"/> is null.</exception>
         public static LoggerConfiguration WithThreadId(
             this LoggerEnrichmentConfiguration enrichmentConfiguration)
         {
@@ -43,8 +43,9 @@ namespace Serilog
         /// <summary>
         /// Enrich log events with a ThreadName property containing the <see cref="Thread.CurrentThread"/> <see cref="Thread.Name"/>.
         /// </summary>
-        /// <param name="enrichmentConfiguration"></param>
-        /// <returns></returns>
+        /// <param name="enrichmentConfiguration">Logger enrichment configuration.</param>
+        /// <returns>Configuration object allowing method chaining.</returns>
+        /// <exception cref="ArgumentNullException">If <paramref name="enrichmentConfiguration"/> is null.</exception>
         public static LoggerConfiguration WithThreadName(
             this LoggerEnrichmentConfiguration enrichmentConfiguration)
         {
