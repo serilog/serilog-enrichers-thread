@@ -19,9 +19,8 @@ using Serilog.Events;
 
 namespace Serilog.Enrichers 
 {
-
     /// <summary>
-    /// Enriches log events with a ThreadName property containing the 
+    /// Enriches log events with a ThreadName property containing the <see cref="Thread.CurrentThread"/> <see cref="Thread.Name"/>.
     /// </summary>
     public class ThreadNameEnricher : ILogEventEnricher 
     {
