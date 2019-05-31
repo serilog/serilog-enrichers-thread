@@ -22,17 +22,19 @@ Log.Logger = new LoggerConfiguration()
 ```
 
 Many sinks simply include all properties without further action required, so the thread id will be logged automatically.
-However, some sinks, such as the File and Console sinks use an output template and the new ThreadId may not be automatically output in your sink. In this case, in order for the ThreadId to show up in the logging, you will need to create or modify your output template. 
+However, some sinks, such as the File and Console sinks use an output template and the new ThreadId may not be automatically output in your sink. In this case, in order for the ThreadId or ThreadName to show up in the logging, you will need to create or modify your output template. 
 
 ```csharp
 w.File(...., outputTemplate:
   "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj} {Properties}{NewLine}{Exception}")
 ```
-Here, {Properties} can include not only ThreadId, but any other enrichment which is applied. Alternatively, {ThreadId} could be used instead, if you want to only add the thread id enrichment or {ThreadName}, if you want to only add the thread name enrichment.
+Here, {Properties} can include not only ThreadId and ThreadName, but any other enrichment which is applied. Alternatively, {ThreadId} could be used instead, if you want to only add the thread id enrichment and {ThreadName}, if you want to only add the thread name enrichment.
 
 An example, which also uses the Serilogs.Sinks.Async Nuget package, is below:
 
 ```csharp
+            Thread.CurrentThread.Name = "MyWorker";
+              
             var logger = Log.Logger = new LoggerConfiguration()
                  .MinimumLevel.Debug()
                  .WriteTo.Console(restrictedToMinimumLevel:Serilog.Events.LogEventLevel.Information)
