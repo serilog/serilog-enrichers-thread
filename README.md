@@ -22,13 +22,13 @@ Log.Logger = new LoggerConfiguration()
 ```
 
 Many sinks simply include all properties without further action required, so the thread id will be logged automatically.
-However, some sinks, such as the File and Console sinks use an output template and the new ThreadId may not be automatically output in your sink. In this case, in order for the ThreadId or ThreadName to show up in the logging, you will need to create or modify your output template. 
+However, some sinks, such as the File and Console sinks use an output template and the new `ThreadId` may not be automatically output in your sink. In this case, in order for the `ThreadId` or `ThreadName` to show up in the logging, you will need to create or modify your output template. 
 
 ```csharp
 w.File(...., outputTemplate:
   "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj} {Properties}{NewLine}{Exception}")
 ```
-Here, {Properties} can include not only ThreadId and ThreadName, but any other enrichment which is applied. Alternatively, {ThreadId} could be used instead, if you want to only add the thread id enrichment and {ThreadName}, if you want to only add the thread name enrichment.
+Here, \{Properties} can include not only `ThreadId` and `ThreadName`, but any other enrichment which is applied. Alternatively, \{ThreadId} could be used instead, if you want to only add the thread id enrichment and \{ThreadName}, if you want to only add the thread name enrichment.
 
 An example, which also uses the Serilogs.Sinks.Async Nuget package, is below:
 
@@ -46,7 +46,7 @@ An example, which also uses the Serilogs.Sinks.Async Nuget package, is below:
   ```
 2018-04-06 13:12:45.684 +02:00 [ERR] The file file_name.svg does not exist <4><MyWorker>
   ```
-Where, <4> is an example thread id and <MyWorker> is an example thread name.
+Where, <4> is an example thread id and \<MyWorker> is an example thread name.
 
 To use the enricher, first install the NuGet package:
 
@@ -55,7 +55,7 @@ Install-Package Serilog.Enrichers.Thread
 ```
 
 Note:
-The {ThreadName} property will only be attached when it is not null. Otherwise it will be omitted.
+The \{ThreadName} property will only be attached when it is not null. Otherwise it will be omitted.
 If you want to get this property always attached you can use the following:
 ```csharp
 using Serilog.Enrichers;
