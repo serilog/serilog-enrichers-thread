@@ -30,6 +30,11 @@ namespace Serilog.Enrichers
         public const string ThreadNamePropertyName = "ThreadName";
 
         /// <summary>
+        /// The cached last created "ThreadName" property with some thread name. It is likely to be reused frequently so avoiding heap allocations.
+        /// </summary>
+        private LogEventProperty _lastValue;
+
+        /// <summary>
         /// Enrich the log event.
         /// </summary>
         /// <param name="logEvent">The log event to enrich.</param>
@@ -39,7 +44,12 @@ namespace Serilog.Enrichers
             var threadName = Thread.CurrentThread.Name;
             if (threadName != null) 
             {
-                logEvent.AddPropertyIfAbsent(new LogEventProperty(ThreadNamePropertyName, new ScalarValue(threadName)));
+                var last = _lastValue;
+                if (last == null || (string)((ScalarValue)last.Value).Value != threadName)
+                    // no need to synchronize threads on write - just some of them will win
+                    _lastValue = last = new LogEventProperty(ThreadNamePropertyName, new ScalarValue(threadName));
+
+                logEvent.AddPropertyIfAbsent(last);
             }
         }
     }
