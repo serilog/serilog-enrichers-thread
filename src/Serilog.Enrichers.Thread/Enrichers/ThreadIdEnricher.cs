@@ -31,7 +31,7 @@ namespace Serilog.Enrichers
         /// <summary>
         /// The cached last created "ThreadId" property with some thread id. It is likely to be reused frequently so avoiding heap allocations.
         /// </summary>
-        private LogEventProperty _lastValue;
+        private LogEventProperty? _lastValue;
 
         /// <summary>
         /// Enrich the log event.
