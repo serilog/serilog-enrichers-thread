@@ -21,12 +21,12 @@ namespace Serilog.Enrichers
     /// <summary>
     /// Enriches log events with a ThreadName property containing the <see cref="Thread.CurrentThread"/> <see cref="Thread.Name"/>.
     /// </summary>
-    public class ThreadNameEnricher : ILogEventEnricher 
+    sealed class ThreadNameEnricher : ILogEventEnricher 
     {
         /// <summary>
         /// The property name added to enriched log events.
         /// </summary>
-        public const string ThreadNamePropertyName = "ThreadName";
+        const string ThreadNamePropertyName = "ThreadName";
 
         /// <summary>
         /// The cached last created "ThreadName" property with some thread name. It is likely to be reused frequently so avoiding heap allocations.

@@ -21,12 +21,12 @@ namespace Serilog.Enrichers
     /// <summary>
     /// Enriches log events with a ThreadId property containing the <see cref="Environment.CurrentManagedThreadId"/>.
     /// </summary>
-    public class ThreadIdEnricher : ILogEventEnricher
+    sealed class ThreadIdEnricher : ILogEventEnricher
     {
         /// <summary>
         /// The property name added to enriched log events.
         /// </summary>
-        public const string ThreadIdPropertyName = "ThreadId";
+        const string ThreadIdPropertyName = "ThreadId";
 
         /// <summary>
         /// The cached last created "ThreadId" property with some thread id. It is likely to be reused frequently so avoiding heap allocations.
