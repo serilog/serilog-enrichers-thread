@@ -43,7 +43,7 @@ namespace Serilog.Enrichers
             var threadId = Environment.CurrentManagedThreadId;
 
             var last = _lastValue;
-            if (last == null || (int)((ScalarValue)last.Value).Value != threadId)
+            if (last is null || (int)((ScalarValue)last.Value).Value! != threadId)
                 // no need to synchronize threads on write - just some of them will win
                 _lastValue = last = new LogEventProperty(ThreadIdPropertyName, new ScalarValue(threadId));
 

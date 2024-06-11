@@ -41,10 +41,10 @@ namespace Serilog.Enrichers
         public void Enrich(LogEvent logEvent, ILogEventPropertyFactory propertyFactory) 
         {
             var threadName = Thread.CurrentThread.Name;
-            if (threadName != null) 
+            if (threadName is not null) 
             {
                 var last = _lastValue;
-                if (last == null || (string)((ScalarValue)last.Value).Value != threadName)
+                if (last is null || (string)((ScalarValue)last.Value).Value! != threadName)
                     // no need to synchronize threads on write - just some of them will win
                     _lastValue = last = new LogEventProperty(ThreadNamePropertyName, new ScalarValue(threadName));
 
