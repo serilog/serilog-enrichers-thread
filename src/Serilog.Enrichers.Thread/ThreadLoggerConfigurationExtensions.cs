@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
 using System;
 using System.Threading;
 using Serilog.Configuration;
@@ -39,7 +38,6 @@ namespace Serilog
             return enrichmentConfiguration.With<ThreadIdEnricher>();
         }
 
-#if THREAD_NAME
         /// <summary>
         /// Enrich log events with a ThreadName property containing the <see cref="Thread.CurrentThread"/> <see cref="Thread.Name"/>.
         /// </summary>
@@ -52,6 +50,5 @@ namespace Serilog
             if (enrichmentConfiguration == null) throw new ArgumentNullException(nameof(enrichmentConfiguration));
             return enrichmentConfiguration.With<ThreadNameEnricher>();
         }
-#endif
     }
 }
