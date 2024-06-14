@@ -2,8 +2,6 @@
 
 Enrich Serilog events with properties from the current thread.
 
-`WithThreadName()` is only supported in .NetStandard 2.0 and .NetFramework 4.5.
- 
 ### Getting started
 
 Install the package from NuGet:
