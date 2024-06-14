@@ -1,23 +1,26 @@
 version: '{build}'
 skip_tags: true
-image: Visual Studio 2017
+image: Visual Studio 2022
 configuration: Release
 build_script:
 - ps: ./Build.ps1
 test: off
 artifacts:
 - path: artifacts/Serilog.*.nupkg
+- path: artifacts/Serilog.*.snupkg
 deploy:
 - provider: NuGet
   api_key:
-    secure: N59tiJECUYpip6tEn0xvdmDAEiP9SIzyLEFLpwiigm/8WhJvBNs13QxzT1/3/JW/
+    secure: Fh92tRIFbe1FAiyD8lTThWgAorQ1vV+eFYMlUK0iLHBBenJcy/UYc1qj6kgHvUcO
   skip_symbols: true
   on:
-    branch: /^(master|dev)$/
+    branch: /^(main|dev)$/
 - provider: GitHub
   auth_token:
     secure: p4LpVhBKxGS5WqucHxFQ5c7C8cP74kbNB0Z8k9Oxx/PMaDQ1+ibmoexNqVU5ZlmX
-  artifact: /Serilog.*\.nupkg/
+  artifacts:
+    /Serilog.*\.nupkg/
+    /Serilog.*\.snupkg/
   tag: v$(appveyor_build_version)
   on:
-    branch: master
+    branch: main

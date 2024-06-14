@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using System.Threading;
 using Serilog.Core;
 using Serilog.Events;
 using System;
@@ -22,12 +21,17 @@ namespace Serilog.Enrichers
     /// <summary>
     /// Enriches log events with a ThreadId property containing the <see cref="Environment.CurrentManagedThreadId"/>.
     /// </summary>
-    public class ThreadIdEnricher : ILogEventEnricher
+    sealed class ThreadIdEnricher : ILogEventEnricher
     {
         /// <summary>
         /// The property name added to enriched log events.
         /// </summary>
-        public const string ThreadIdPropertyName = "ThreadId";
+        const string ThreadIdPropertyName = "ThreadId";
+
+        /// <summary>
+        /// The cached last created "ThreadId" property with some thread id. It is likely to be reused frequently so avoiding heap allocations.
+        /// </summary>
+        private LogEventProperty? _lastValue;
 
         /// <summary>
         /// Enrich the log event.
@@ -36,7 +40,14 @@ namespace Serilog.Enrichers
         /// <param name="propertyFactory">Factory for creating new properties to add to the event.</param>
         public void Enrich(LogEvent logEvent, ILogEventPropertyFactory propertyFactory)
         {
-            logEvent.AddPropertyIfAbsent(new LogEventProperty(ThreadIdPropertyName, new ScalarValue(Environment.CurrentManagedThreadId)));
+            var threadId = Environment.CurrentManagedThreadId;
+
+            var last = _lastValue;
+            if (last is null || (int)((ScalarValue)last.Value).Value! != threadId)
+                // no need to synchronize threads on write - just some of them will win
+                _lastValue = last = new LogEventProperty(ThreadIdPropertyName, new ScalarValue(threadId));
+
+            logEvent.AddPropertyIfAbsent(last);
         }
     }
 }
