@@ -6,8 +6,8 @@ Enrich Serilog events with properties from the current thread.
 
 Install the package from NuGet:
 
-```powershell
-Install-Package Serilog.Enrichers.Thread
+```sh
+dotnet add package Serilog.Enrichers.Thread
 ```
 
 In your logger configuration, apply `Enrich.WithThreadId()` and `Enrich.WithThreadName()`:
@@ -26,7 +26,7 @@ However, some sinks, such as the File and Console sinks use an output template a
 w.File(...., outputTemplate:
   "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj} {Properties}{NewLine}{Exception}")
 ```
-Here, \{Properties} can include not only `ThreadId` and `ThreadName`, but any other enrichment which is applied. Alternatively, \{ThreadId} could be used instead, if you want to only add the thread id enrichment and \{ThreadName}, if you want to only add the thread name enrichment.
+Here, `{Properties}` can include not only `ThreadId` and `ThreadName`, but any other enrichment which is applied. Alternatively, `{ThreadId}` could be used instead, if you want to only add the thread id enrichment and `{ThreadName}`, if you want to only add the thread name enrichment.
 
 An example, which also uses the Serilogs.Sinks.Async Nuget package, is below:
 
@@ -39,28 +39,32 @@ An example, which also uses the Serilogs.Sinks.Async Nuget package, is below:
                  .WriteTo.Async(w=>w.File("..\\..\\..\\..\\logs\\SerilogLogFile.json", rollingInterval: RollingInterval.Day, outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj} <{ThreadId}><{ThreadName}>{NewLine}{Exception}"))
                  .Enrich.WithThreadId()
                  .CreateLogger();
-  ```
-  Which would produce an output in the log file as follows:
-  ```
+```
+
+Which would produce an output in the log file as follows:
+
+```
 2018-04-06 13:12:45.684 +02:00 [ERR] The file file_name.svg does not exist <4><MyWorker>
-  ```
-Where, <4> is an example thread id and \<MyWorker> is an example thread name.
+```
+
+Where, `<4>` is an example thread id and `<MyWorker>` is an example thread name.
 
 To use the enricher, first install the NuGet package:
 
-```powershell
-Install-Package Serilog.Enrichers.Thread
+```sh
+dotnet add package Serilog.Enrichers.Thread
 ```
 
 Note:
-The \{ThreadName} property will only be attached when it is not null. Otherwise it will be omitted.
+The `{ThreadName}` property will only be attached when it is not null. Otherwise it will be omitted.
 If you want to get this property always attached you can use the following:
+
 ```csharp
 using Serilog.Enrichers;
 
 Log.Logger = new LoggerConfiguration()
     .Enrich.WithThreadName()
-    .Enrich.WithProperty(ThreadNameEnricher.ThreadNamePropertyName, "MyDefault")
+    .Enrich.WithProperty("ThreadName", "MyDefault")
     .CreateLogger();
 ```
 The enrichment order is important. Otherwise "MyDefault" would always win.
